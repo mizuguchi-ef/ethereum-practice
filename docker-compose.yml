@@ -1,0 +1,13 @@
+services:
+  ethereum-go: # サービス名
+    container_name: ethereum-go
+    build: # ビルドに使うDockerファイルのパス
+      context: .
+      dockerfile: ./build/Dockerfile
+    volumes: # マウントディレクトリ
+      - ./src:/go/src/github.com/ethereum-practice
+    tty: true
+    env_file:
+      - ./build/.env.local
+    environment:
+      - TZ=Asia/Tokyo
