@@ -24,19 +24,18 @@ git clone -b main https://github.com/mizuguchi-ef/ethereum-practice.git
 cd ethereum-practice
 ```
 
-- 環境変数を設定
-
-```
-touch build/.env.local
-vi build/client/.env.local
-
-# () から内容をコピーして以下コマンドで保存
-:wq
-```
-
 - Docker 起動
 
 ```
 docker-compose build
 docker-compose up -d
 ```
+
+## コンテナに入り、geth を起動
+
+```
+docker exec -it geth /bin/sh
+geth --http --http.addr "0.0.0.0" --http.port "8545" --http.api "eth,net,web3" --ws --ws.addr "0.0.0.0" --ws.port "8546" --ws.api "eth,net,web3" --syncmode "snap"
+```
+
+(http://localhost:8545)にアクセスし、RPC が起動しているか確認

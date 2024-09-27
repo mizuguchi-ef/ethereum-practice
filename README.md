@@ -24,20 +24,18 @@ git clone -b main https://github.com/mizuguchi-ef/ethereum-practice.git
 cd ethereum-practice
 ```
 
-- Set Environmental valuable for Dev
-
-```
-touch build/.env.local
-vi build/.env.local
-
-# Copy contents from ()
-# and save with command below
-:wq
-```
-
 - Start Docker
 
 ```
 docker-compose build
 docker-compose up -d
 ```
+
+## Enter the container and Start Geth
+
+```
+docker exec -it geth /bin/sh
+geth --http --http.addr "0.0.0.0" --http.port "8545" --http.api "eth,net,web3" --ws --ws.addr "0.0.0.0" --ws.port "8546" --ws.api "eth,net,web3" --syncmode "snap"
+```
+
+Access to (http://localhost:8545) to check RPC is activated

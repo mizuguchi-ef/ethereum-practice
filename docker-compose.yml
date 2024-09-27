@@ -1,13 +1,18 @@
 services:
-  ethereum-go: # サービス名
-    container_name: ethereum-go
+  geth: # サービス名
+    container_name: geth # コンテナ名
     build: # ビルドに使うDockerファイルのパス
       context: .
       dockerfile: ./build/Dockerfile
     volumes: # マウントディレクトリ
-      - ./src:/go/src/github.com/ethereum-practice
+      - geth_data:/root/.ethereum # データを永続化
+    ports:
+      - "8545:8545" # RPC ポート
+      - "8546:8546" # WebSocket ポート
+      - "30303:30303" # P2P ポート
+    entrypoint:
+      - /bin/sh
     tty: true
-    env_file:
-      - ./build/.env.local
-    environment:
-      - TZ=Asia/Tokyo
+
+volumes:
+  geth_data:
