@@ -3,7 +3,7 @@ services:
     container_name: geth # コンテナ名
     build: # ビルドに使うDockerファイルのパス
       context: .
-      dockerfile: ./build/Dockerfile
+      dockerfile: ./build/geth/Dockerfile
     volumes: # マウントディレクトリ
       - geth_data:/root/.ethereum # データを永続化
     ports:
@@ -13,6 +13,21 @@ services:
     entrypoint:
       - /bin/sh
     tty: true
+
+  go:
+    container_name: go
+    build: # ビルドに使うDockerファイルのパス
+      context: .
+      dockerfile: ./build/go/Dockerfile
+    volumes:
+    - ./src:/src # マウントディレクトリ
+    ports:
+      - "8080:8080" # ポート番号
+    tty: true # コンテナの永続化
+    env_file:
+      - ./build/go/.env.local
+    environment:
+      - TZ=Asia/Tokyo
 
 volumes:
   geth_data:
