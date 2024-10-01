@@ -14,18 +14,18 @@ services:
       - /bin/sh
     tty: true
 
-  go:
-    container_name: go
+  practice: # サービス名
+    container_name: practice # コンテナ名
     build: # ビルドに使うDockerファイルのパス
       context: .
-      dockerfile: ./build/go/Dockerfile
+      dockerfile: ./build/practice/Dockerfile
     volumes:
-    - ./src:/src # マウントディレクトリ
+    - ./go/src/github.com/practice:/go/src/github.com/practice # マウントディレクトリ
     ports:
       - "8080:8080" # ポート番号
     tty: true # コンテナの永続化
     env_file:
-      - ./build/go/.env.local
+      - ./build/practice/.env.local
     environment:
       - TZ=Asia/Tokyo
 
