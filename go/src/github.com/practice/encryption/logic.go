@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func logic() {
+func Logic() {
 	// コンソールから入力を取得
 	fmt.Println("Enter your text")
 	reader := bufio.NewReader(os.Stdin)
